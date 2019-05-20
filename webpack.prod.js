@@ -2,16 +2,17 @@ const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
-const PUBLIC_PATH = '/';
+// const PUBLIC_PATH = 'https://movie-club.netlify.com/';
 
 module.exports = {
     devtool: 'source-map',
     entry: "./src/index.js",
     output: {
-        path: path.join(__dirname, "/dist"),
+        path: path.join(__dirname, "/build"),
         filename: "[name]-[hash].js",
-        publicPath: PUBLIC_PATH
+        publicPath: '/'
     },
     module: {
         rules: [{
@@ -62,12 +63,16 @@ module.exports = {
             filename: '[name].css',
             chunkFilename: '[id].css',
         }),
+        new CopyPlugin([
+            { from: 'src/images', to: './' },
+            { from: 'src/manifest.json', to: './' },
+          ]),
         new SWPrecacheWebpackPlugin({
             cacheId: 'movie-club',
             dontCacheBustUrlsMatching: /\.\w{8}\./,
             filename: 'service-worker.js',
             minify: true,
-            navigateFallback: PUBLIC_PATH + 'index.html',
+            navigateFallback: '/' + 'index.html',
             staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
         }),
     ]

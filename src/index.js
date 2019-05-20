@@ -14,3 +14,7 @@ if (module.hot) {
         ReactDOM.render(<NextApp />, rootEl)
       })
 }
+
+if('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js');
+}
