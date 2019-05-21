@@ -64,7 +64,7 @@ module.exports = {
             chunkFilename: '[id].css',
         }),
         new CopyPlugin([
-            { from: 'src/images', to: './' },
+            { from: 'src/images', to: './images' },
             { from: 'src/manifest.json', to: './' },
           ]),
         new SWPrecacheWebpackPlugin({
