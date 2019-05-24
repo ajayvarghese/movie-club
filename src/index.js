@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import App from './containers/App';
+import register from './offline-support-sw.js';
 
 const rootEl = document.getElementById('app');
 
@@ -20,3 +21,5 @@ if('serviceWorker' in navigator) {
     .then(() => console.log('Service worker registered'))
     .catch((error) => {throw new Error(error)});
 }
+
+// register();

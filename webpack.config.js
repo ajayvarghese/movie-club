@@ -1,7 +1,6 @@
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
 const PUBLIC_PATH = '/';
 
@@ -61,14 +60,6 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: '[name].css',
             chunkFilename: '[id].css',
-        }),
-        new SWPrecacheWebpackPlugin({
-            cacheId: 'movie-club',
-            dontCacheBustUrlsMatching: /\.\w{8}\./,
-            filename: 'service-worker.js',
-            minify: true,
-            navigateFallback: PUBLIC_PATH + 'index.html',
-            staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
         }),
     ]
 }

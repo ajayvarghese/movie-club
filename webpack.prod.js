@@ -3,6 +3,7 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const {GenerateSW} = require('workbox-webpack-plugin');
 
 // const PUBLIC_PATH = 'https://movie-club.netlify.com/';
 
@@ -67,13 +68,12 @@ module.exports = {
             { from: 'src/images', to: './images' },
             { from: 'src/manifest.json', to: './' },
           ]),
-        new SWPrecacheWebpackPlugin({
+        new GenerateSW({
             cacheId: 'movie-club',
             dontCacheBustUrlsMatching: /\.\w{8}\./,
-            filename: 'service-worker.js',
-            minify: true,
+            swDest: 'service-worker.js',
             navigateFallback: '/' + 'index.html',
-            staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+            //staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
         }),
     ]
 }
