@@ -1,7 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
 import App from './containers/App';
-import register from './offline-support-sw.js';
 
 const rootEl = document.getElementById('app');
 
@@ -16,12 +15,14 @@ if (module.hot) {
       })
 }
 
-console.log(process);
-
-if('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/service-worker.js')
-    .then(() => console.log('Service worker registered'))
-    .catch((error) => {throw new Error(error)});
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js').then(function(registration) {
+        // Registration was successful
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }, function(err) {
+        // registration failed :(
+        console.log('ServiceWorker registration failed: ', err);
+      });
+    });
 }
-
-// register();
