@@ -1,3 +1,4 @@
+workbox.precaching.precacheAndRoute(self.__precacheManifest || []);
 self.addEventListener('fetch', function(event) {
   event.respondWith(
     caches.match(event.request)
